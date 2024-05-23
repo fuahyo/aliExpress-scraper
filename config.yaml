@@ -1,0 +1,10 @@
+seeder:
+  file: ./seeder/seeder.rb
+  disabled: false # Optional. Set it to true if you want to disable
+# parsers:
+#   - page_type: listings
+#     file: ./parsers/listings.rb
+#     disabled: false # Optional
+#   - page_type: details
+#     file: ./parsers/details.rb
+#     disabled: false
