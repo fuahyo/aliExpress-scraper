@@ -1,20 +1,28 @@
 nokogiri = Nokogiri.HTML(content)
-products = nokogiri.css('.search-item-card-wrapper-gallery')
-# products = nokogiri.css('#card-list .search-item-card-wrapper-gallery')
+listings = nokogiri.css('.search-item-card-wrapper-gallery')
+# listings = nokogiri.css('#card-list .search-item-card-wrapper-gallery')
 
-products.each do |product|
-    a_element = product.at_css('.card--out-wrapper a').attr('href')
+listings.each do |listing|
+    product = {}
+    a_element = listing.at_css('.card--out-wrapper a').attr('href')
     if a_element
-        url = URI.join('https:', a_element).to_s.split('?').first
-        if url =~ /\Ahttps?:\/\//i
+
+        product['url'] = URI.join('https:', a_element).to_s.split('?').first
+
+        product['_collection'] = "listings"
+
+        # save the product to the outputs.
+        outputs << product
+
+        if product['url'] =~ /\Ahttps?:\/\//i
             pages << {
-                url: url,
+                url: product['url'],
                 page_type: 'products',
                 fetch_type: 'browser',
                 force_fetch: true,
                 vars: {
                     # category: page['vars']['category'],
-                    url: url
+                    url: product['url']
                 }
             }
         end
