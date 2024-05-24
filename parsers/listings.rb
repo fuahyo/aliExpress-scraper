@@ -14,7 +14,7 @@ listings.each do |listing|
         # save the product to the outputs.
         outputs << product
 
-        if product['url'] =~ /\Ahttps?:\/\//i
+        # if product['url'] =~ /\Ahttps?:\/\//i
             pages << {
                 url: product['url'],
                 page_type: 'products',
@@ -25,6 +25,6 @@ listings.each do |listing|
                     url: product['url']
                 }
             }
-        end
+        # end
     end
 end
