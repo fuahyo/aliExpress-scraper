@@ -64,25 +64,25 @@ end
 
 total_page_summary = nokogiri.css("li.comet-pagination-item.comet-pagination-item-60 > a").text
 total_page = total_page_summary.scan(/\d+/).first.to_i
-# 2.upto(total_page) do |i|
-#     if i < 11
-#         url = "https://www.aliexpress.com/category/100003109/women-clothing.html?page=#{i}"
-#         pages << {
-#             method: "GET",
-#             fetch_type: "browser",
-#             headers: {"User-Agent" => "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"},
-#             vars: {
-#                 category: "Women's clothing"
-#             },
-#             url:url,
-#             page_type: "listings",
-#             display: {
-#                 "width": 1920,
-#                 "height": 3300
-#             }
-#         }
-#     end
-# end
+2.upto(total_page) do |i|
+    if i < 11
+        url = "https://www.aliexpress.com/category/100003109/women-clothing.html?page=#{i}"
+        pages << {
+            # method: "GET",
+            # fetch_type: "browser",
+            # headers: {"User-Agent" => "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"},
+            # vars: {
+            #     category: "Women's clothing"
+            # },
+            url:url,
+            page_type: "listings",
+            # display: {
+            #     "width": 1920,
+            #     "height": 3300
+            # }
+        }
+    end
+end
 
 
 #root > div.root--container--2gVZ5S0.root--newRoot--2-6FirH.search-root-cls > div > div.rightContent2023--rightContainer--2abV4r5 > div.cards2023--pagination--1-0Grbh > ul > li.comet-pagination-item.comet-pagination-item-60 > a
