@@ -3,9 +3,9 @@ html = Nokogiri.HTML(content)
 product = {}
 
 url = page['url']
-puts url
+# puts url
 
-# product['url'] = url
+product['url'] = url
 
 # # product['category'] = page['vars']['category']
 
@@ -67,3 +67,4 @@ puts url
 # product['_collection'] = "products"
 
 outputs << product
+puts outputs

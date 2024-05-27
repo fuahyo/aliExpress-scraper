@@ -23,7 +23,8 @@ total_page_summary = nokogiri.css("li.comet-pagination-item.comet-pagination-ite
 total_page = total_page_summary.scan(/\d+/).first.to_i
 2.upto(total_page) do |i|
     if i < 11
-        pageUrl = "https://www.aliexpress.com/category/100003109/women-clothing.html?page=#{i}"
+        pageUrl = "https://www.aliexpress.com/category/204000220/women-clothing.html?CatId=204000220&page=#{i}"
+        
         
         pages << {
             fetch_type: "browser",
