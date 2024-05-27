@@ -1,22 +1,36 @@
 nokogiri = Nokogiri.HTML(content)
 products = nokogiri.css('.search-item-card-wrapper-gallery')
 products.each do |product|
-  a_element = product.at_css('.card--out-wrapper a')
-  if a_element
-    url = URI.join('https:', a_element['href']).to_s.split('?').first
-    if url =~ /\Ahttps?:\/\//i
-      pages << {
-          url: url,
-          page_type: 'products',
-          fetch_type: 'browser',
-          force_fetch: true,
-          vars: {
-            category: page['vars'],
-            url: url
-          }
-        }
+    title = product.at_css('.multi--titleText--nXeOvyr').text
+    price = product.at_css('.multi--price-sale--U-S0jtj').text.scan(/(\d+\,\d+)/)
+    # discount_elem = product.at_css('.multi--price-sale--U-S0jtj')
+    # if discount_elem
+    #     pricestring = discount_elem.text
+    #     price = pricestring.scan(/(\d+\,\d+)/)
+    # end
+    a_element = product.at_css('.card--out-wrapper a')
+    if a_element
+        url = URI.join('https:', a_element['href']).to_s.split('?').first
+        if url =~ /\Ahttps?:\/\//i
+            pages << {
+                url: url,
+                page_type: 'products',
+                fetch_type: 'browser',
+                force_fetch: true,
+                vars: {
+                    category: page['vars'],
+                    url: url
+                }
+            }
+        end
     end
-  end
+
+    outputs << {
+        _collection: "products",
+        title: title,
+        price: price, 
+        url: url 
+    }
 end
 
 total_page_summary = nokogiri.css("li.comet-pagination-item.comet-pagination-item-60 > a").text

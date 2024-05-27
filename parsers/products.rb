@@ -3,27 +3,29 @@ html = Nokogiri.HTML(content)
 product = {}
 
 url = page['url']
-# puts url
 
 product['url'] = url
 
 # # product['category'] = page['vars']['category']
+puts html
+product['title'] = html.at_css('[data-pl="product-title"] font font')&.text
+# product['title'] = html.at_css('[data-pl="product-title"] font font')&.text
+#root > div > div.pdp-body.pdp-wrap > div > div.pdp-body-top-left > div.pdp-info > div.pdp-info-right > div.title--wrap--Ms9Zv4A > h1 > font > font
 
-# product['title'] = html.css('h1.product-title-text').text.strip
+image_url = html.at_css('div.image-view--previewBox--FyWaIlU div img')
+product['image_url'] = image_url['src']
+#root > div > div.pdp-body.pdp-wrap > div > div.pdp-body-top-left > div.pdp-info > div.pdp-info-left > div > div > div.image-view--previewWrap--kSHfegR > div.image-view--previewBox--FyWaIlU > div > img
 
-# image_url = html.at_css('.images-view-item img')
-
-# product['image_url'] = image_url['src']
-
-# discount_elem = html.css('div.product-price-current')
+discount_elem = html.css('div.product-price-current')
 # discount_elem = html.css('span.uniform-banner-box-price') if discount_elem.empty?
+#root > div > div.pdp-body.pdp-wrap > div > div.pdp-body-top-left > div.pdp-info > div.pdp-info-right > div.price--wrap--tA4MDk4.product-price.price--hasDiscount--LTvrFnq > div.price--original--qDQaH8V > span.price--discount--xET8qnP
 
-# if discount_elem
-#     pricestring = discount_elem.text
-#     price = pricestring.scan(/(\d+\.\d+)/)
-#     product['discount_low_price'] = price.first[0].to_f
-#     product['discount_high_price'] = price.last[0].to_f
-# end
+if discount_elem
+    pricestring = discount_elem.text
+    price = pricestring.scan(/(\d+\.\d+)/)
+    product['discount_low_price'] = price.first[0].to_f
+    product['discount_high_price'] = price.last[0].to_f
+end
 
 # originalprice_elem = html.css('div.product-price-original')
 # originalprice_elem = html.css('span.uniform-banner-box-discounts') if originalprice_elem.empty?
@@ -64,7 +66,6 @@ product['url'] = url
 
 # product['guarantee'] = html.at_css('.buyer-pretection-context')&.text
 
-# product['_collection'] = "products"
+product['_collection'] = "products"
 
 outputs << product
-puts outputs
